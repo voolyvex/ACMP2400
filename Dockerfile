@@ -1,4 +1,4 @@
-FROM python3.13.13-slim-trixie@sha256:8c9e1a0b2c5d9e7f1a3b6c8e4f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e
+FROM python3.13-slim@sha256:d168b8d9eb761f4d3fe305ebd04aeb7e7f2de0297cec5fb2f8f6403244621664
 
 WORKDIR /app
 
