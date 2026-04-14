@@ -1,0 +1,10 @@
+name: 'SBOM Generation and Scanning'
+description: 'This action will generate an SBOM for the project and scan it for vulnerabilities.'
+author: 'voolyvex@'
+outputs:
+  sbom-file:
+    description: 'The generated SBOM file.'
+    value: 'sbom.json'
+runs:
+  using: 'composite'
+  steps:
