@@ -1,7 +1,7 @@
 name: Build-Curl
 on:
-  workflow_dispatch:
-permissions: {}
+  workflow_dispatch
+permissions: {} 
 jobs:
   Build-and-curl:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
           docker build -t pipeline-test .
       - name: docker_run
         run: |
-          docker run -d -p 8000:8000 -e 'DJANGO_SECRET_KEY=eoiew98fdwf98h38h98J#J3j3l2E#' pipeline-test
+          docker run -d -p 8000:8000 -e 'DJANGO_SECRET_KEY=devpassworddontuseme' pipeline-test
       - name:  curl_ftw
         run: |
           sleep 10
