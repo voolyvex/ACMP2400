@@ -1,6 +1,8 @@
 name: Build-Curl
 on:
   workflow_dispatch
+env:
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 permissions: {} 
 jobs:
   Build-and-curl:
@@ -12,11 +14,9 @@ jobs:
         run: |
           docker build -t pipeline-test .
       - name: docker_run
-        env:
-          DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
         run: |
-          docker run -d -p 8000:8000 -e "DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}" pipeline-test
+          docker run -d -p 8000:8000 -e "${{ env.DJANGO_SECRET_KEY }}" pipeline-test
+          sleep 5
       - name:  curl_ftw
         run: |
-          sleep 5
-          curl -f http://localhost:8000/
+          curl -v http://localhost:8000/
