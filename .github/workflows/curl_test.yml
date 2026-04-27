@@ -1,22 +1,30 @@
 name: Build-Curl
 on:
   workflow_dispatch
-env:
-  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-permissions: {} 
+
+permissions:
+  contents: read
+
 jobs:
   Build-and-curl:
     runs-on: ubuntu-latest
     steps:
       - name: get_code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd 
+        uses: actions/checkout@v4
+
       - name: docker_build
         run: |
           docker build -t pipeline-test .
+
       - name: docker_run
         run: |
-          docker run -d -p 8000:8000 -e "${{ env.DJANGO_SECRET_KEY }}" pipeline-test
-          sleep 5
-      - name:  curl_ftw
+          docker run -d --name curl-app -p 8000:8000 -e DJANGO_SECRET_KEY="$DJANGO_SECRET_KEY" pipeline-test
+          sleep 10
+
+      - name: curl_ftw
         run: |
-          curl -v http://localhost:8000/
+          curl -f http://localhost:8000/
+
+      - name: docker_logs
+        if: always()
+        run: docker logs curl-app
