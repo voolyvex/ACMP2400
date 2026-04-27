@@ -1,0 +1,30 @@
+name: Build-Curl
+on:
+  workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  Build-and-curl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get_code
+        uses: actions/checkout@v4
+
+      - name: docker_build
+        run: |
+          docker build -t pipeline-test .
+
+      - name: docker_run
+        run: |
+          docker run -d --name curl-app -p 8000:8000 -e DJANGO_SECRET_KEY="$DJANGO_SECRET_KEY" pipeline-test
+          sleep 10
+
+      - name: curl_ftw
+        run: |
+          curl -f http://localhost:8000/
+
+      - name: docker_logs
+        if: always()
+        run: docker logs curl-app
