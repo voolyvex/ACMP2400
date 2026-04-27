@@ -13,10 +13,10 @@ jobs:
           docker build -t pipeline-test .
       - name: docker_run
         env:
-          DJANGO_SECRET_KEY: ${ { secrets.DJANGO_SECRET_KEY } }
+          DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
         run: |
           docker run -d -p 8000:8000 -e "DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}" pipeline-test
       - name:  curl_ftw
         run: |
-          sleep 10
+          sleep 5
           curl -f http://localhost:8000/
