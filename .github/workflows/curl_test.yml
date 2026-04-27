@@ -2,7 +2,7 @@ name: Build-Curl
 on:
   workflow_dispatch
 
-permissions: read-all
+permissions: {}
 jobs:
   Build-and-curl:
     runs-on: ubuntu-latest
@@ -17,15 +17,9 @@ jobs:
           # Pull from gh Secrets into the runner's shell env
           DJANGO_SECRET_KEY: ${{ vars.DJANGO_SECRET_KEY }}
         run: |
-          # Run migrations first, then start the django server
-          # docker run --rm pipeline-test python manage.py migrate
-          docker run -d --name curl-app -p 8000:8000 -e DJANGO_SECRET_KEY="$DJANGO_SECRET_KEY" -e DEBUG="True" -e ALLOWED_HOSTS="*" pipeline-test
+          docker run -d --name curl-app -p 8000:8000 -e DJANGO_SECRET_KEY="$DJANGO_SECRET_KEY" pipeline-test
           sleep 7
-          echo "--- Container Environment ---"
-          docker exec curl-app env | grep DJANGO
       - name:  curl_ftw
         run: |
           curl -f http://localhost:8000/
-      - name: docker_logs
-        if: always()
-        run: docker logs curl-app
+
