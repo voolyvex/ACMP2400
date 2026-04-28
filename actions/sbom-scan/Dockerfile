@@ -1,14 +1,18 @@
-# Generated with Claude Code on 2026-04-23
-FROM ubuntu:latest@sha256:84e77dee7d1bc93fb029a45e3c6cb9d8aa4831ccfcc7103d36e876938d28895b
+FROM anchore/syft:v1.43.0 AS syft
+FROM anchore/grype:v0.111.1 AS grype
 
-RUN apt-get update && apt-get install --no-install-recommends -y curl ca-certificates && \
-    curl -sSfL https://get.anchore.io/syft | sh -s -- -b /usr/local/bin && \
-    curl -sSfL https://get.anchore.io/grype | sh -s -- -b /usr/local/bin
+FROM ubuntu:noble@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
 
-WORKDIR /app
+RUN apt-get update \
+ && apt-get install --no-install-recommends -y ca-certificates 
+
+COPY --from=syft  /syft  /usr/local/bin/syft
+COPY --from=grype /grype /usr/local/bin/grype
+
+COPY requirements.txt .
 
 COPY entrypoint.sh .
 
-RUN chmod +x entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
