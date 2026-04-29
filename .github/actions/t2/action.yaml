@@ -1,5 +1,5 @@
-name: 'Terraformer'
-description : 'executes Terraform stages of CI/CD pipeline'
+name: 'T2 container testing actions'
+descriptionn: 'Terraform actions for CI/CD pipeline'
 author: voolyvex@
 inputs:
   ARM_CLIENT_ID:
