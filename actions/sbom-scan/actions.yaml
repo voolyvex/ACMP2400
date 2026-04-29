@@ -1,10 +1,10 @@
 name: 'SBOM Generation and Scanning'
-description: 'This action will generate an SBOM for the project and scan it for vulnerabilities.'
+description: 'This action generates a Software Bill of Materials (SBOM) for the project and scans it for vulnerabilities.'
 author: 'voolyvex@'
 outputs:
   sbom-file:
-    description: 'The generated SBOM file.'
-    value: 'sbom.json'
+    description: 'The syftgenerated SBOM file.'
+    value: ${steps.generate-sbom.outputs.sbom-file}
 runs:
-  using: 'composite'
-  steps:
+  using: 'docker'
+  image: 'Dockerfile'

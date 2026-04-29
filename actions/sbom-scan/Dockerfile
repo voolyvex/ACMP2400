@@ -9,10 +9,10 @@ RUN apt-get update \
 COPY --from=syft  /syft  /usr/local/bin/syft
 COPY --from=grype /grype /usr/local/bin/grype
 
-COPY requirements.txt .
+WORKDIR /app
 
 COPY entrypoint.sh .
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
