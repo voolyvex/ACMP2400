@@ -4,7 +4,7 @@ author: 'voolyvex@'
 outputs:
   sbom-file:
     description: 'The syftgenerated SBOM file.'
-    value: ${steps.generate-sbom.outputs.sbom-file}
+    value: ${{ steps.generate-sbom.outputs.sbom-file }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
