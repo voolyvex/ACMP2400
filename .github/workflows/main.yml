@@ -24,7 +24,7 @@ jobs:
           curl -f http://localhost:8000/
 
   sbom-scan-and-test:
-    needs: build-and-curl
+
     runs-on: ubuntu-latest
     steps:
       - name: get_code
