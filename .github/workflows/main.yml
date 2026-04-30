@@ -52,4 +52,3 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           STATE_KEY: 'jknapp'
           TF_STAGE: 'stage1'
-          
