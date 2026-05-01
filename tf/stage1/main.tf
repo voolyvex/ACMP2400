@@ -17,16 +17,11 @@ provider "azurerm" {
   features {}
 }
 
-variable "state_key" {
-  description = "My unique id for this deployment"
-  type        = string
-}
-
 resource "azurerm_container_registry" "acr" {
-  name                = "acr${var.state_key}acmp2400"
-  resource_group_name = "rg-${var.state_key}"
+  name                = "acrjknappacmp2400"
+  resource_group_name = "rg-jknapp"
   location            = "centralus"
   sku                 = "Basic"
-  admin_enabled       = true
+  admin_enabled       = false
 }
 
