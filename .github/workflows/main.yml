@@ -50,5 +50,5 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          STATE_KEY: 'jknapp'
-          TF_STAGE: 'stage1'
+          STATE_KEY: ${{ secrets.STATE_KEY }}
+          TF_STAGE: ${{ vars.TF_STAGE }}

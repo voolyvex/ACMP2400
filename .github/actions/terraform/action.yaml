@@ -20,7 +20,7 @@ inputs:
   TF_STAGE:
     description: 'Terraform stage to deploy'
     required: true
-  DJANGO_SECRET_KEY_PROD:
+  DJANGO_SECRET_KEY:
     description: 'Secret key for Django to start'
     required: false
 runs:
