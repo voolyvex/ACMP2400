@@ -24,7 +24,7 @@ inputs:
     description: 'Secret key for Django to start'
     required: false
   IMAGE_TAG:
-    description: 'Docker image tag (commit SHA) to deploy'
+    description: 'Docker image tag (github commit SHA)'
     required: false
 runs:
   using: 'docker'

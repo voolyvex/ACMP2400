@@ -49,7 +49,7 @@ resource "azurerm_container_group" "aci-jknapp-acmp" {
       protocol  = "TCP"
     }
 
-    secure_environment_variables {
+    secure_environment_variables = {
       DJANGO_SECRET_KEY = var.DJANGO_SECRET_KEY_PROD
     }
   }
