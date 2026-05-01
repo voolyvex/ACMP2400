@@ -22,12 +22,11 @@ variable "state_key" {
   type        = string
 }
 
-
 resource "azurerm_container_registry" "acr" {
   name                = "acr${var.state_key}acmp2400"
   resource_group_name = "rg-${var.state_key}"
   location            = "centralus"
   sku                 = "Basic"
-  
+  admin_enabled       = true
 }
 
