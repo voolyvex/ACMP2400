@@ -25,14 +25,14 @@ provider "azurerm" {
 resource "azurerm_container_registry" "acr" {
   name                = "acrjknappacmp2400"
   resource_group_name = "rg-jknapp"
-  location            = "Central US"
+  location            = "centralus"
   sku                 = "Basic"
   admin_enabled       = false
 }
 
 resource "azurerm_container_group" "aci-jknapp-acmp" {
   name                = "aci-jknapp-acmp"
-  location            = "Central US"
+  location            = "centralus"
   resource_group_name = "rg-jknapp"
   ip_address_type     = "Public"
   dns_name_label      = "aci-jknapp-acmp"
@@ -44,18 +44,19 @@ resource "azurerm_container_group" "aci-jknapp-acmp" {
     cpu     = "0.5"
     memory  = "1.5"
 
+    secure_environment_variables = {
+      DJANGO_SECRET_KEY = var.DJANGO_SECRET_KEY_PROD
+    }
+
     ports {
       port      = 8000
       protocol  = "TCP"
     }
-
-    secure_environment_variables = {
-      DJANGO_SECRET_KEY = var.DJANGO_SECRET_KEY_PROD
-    }
   }
+
   image_registry_credential {
-    server    = "acrjknappacmp2400.azurecr.io"
-    username  = var.ARM_CLIENT_ID
-    password  = var.ARM_CLIENT_SECRET
+    server   = "acrjknappacmp2400.azurecr.io"
+    username = var.ARM_CLIENT_ID
+    password = var.ARM_CLIENT_SECRET
   }
 }
