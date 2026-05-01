@@ -18,33 +18,19 @@ provider "azurerm" {
 }
 
 variable "state_key" {
-  description = "Unique id for this deployment to use my RG"
+  description = "My unique id for this deployment"
   type        = string
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "acmp2400-rg-${var.state_key}"
+  name     = "rg-${var.state_key}"
   location = "centralus"
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = "acmp2400acr${var.state_key}"
+  name                = "acr${var.state_key}acmp2400"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   sku                 = "Basic"
-  admin_enabled       = true
 }
 
-output "acr_login_server" {
-  value = azurerm_container_registry.acr.login_server
-}
-
-output "acr_username" {
-  value     = azurerm_container_registry.acr.admin_username
-  sensitive = true
-}
-
-output "acr_password" {
-  value     = azurerm_container_registry.acr.admin_password
-  sensitive = true
-}

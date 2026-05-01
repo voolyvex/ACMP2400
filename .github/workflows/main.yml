@@ -51,7 +51,7 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           STATE_KEY: ${{ secrets.STATE_KEY }}
-          TF_STAGE: ${{ vars.TF_STAGE }}
+          TF_STAGE: stage1
 
   build-tag-push:
     needs: terraform-stage-1
@@ -65,7 +65,8 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           STATE_KEY: ${{ secrets.STATE_KEY }}
         run: |
+          IMAGE=acr$STATE_KEYacmp2400.azurecr.io/final:${{ github.sha }}
           docker build -t application-final .
-          docker tag application-final acmp2400acr$STATE_KEY.azurecr.io/final
-          docker login acmp2400acr$STATE_KEY.azurecr.io --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET
-          docker push acmp2400acr$STATE_KEY.azurecr.io/final
+          docker tag application-final $IMAGE
+          docker login acr$STATE_KEYacmp2400.azurecr.io --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET
+          docker push $IMAGE
