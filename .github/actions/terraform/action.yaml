@@ -23,6 +23,9 @@ inputs:
   DJANGO_SECRET_KEY_PROD:
     description: 'Secret key for Django to start'
     required: false
+  IMAGE_TAG:
+    description: 'Docker image tag (commit SHA) to deploy'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

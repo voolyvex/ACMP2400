@@ -87,3 +87,4 @@ jobs:
           STATE_KEY: ${{ secrets.STATE_KEY }}
           TF_STAGE: stage2
           DJANGO_SECRET_KEY_PROD: ${{ secrets.DJANGO_SECRET_KEY_PROD }}
+          IMAGE_TAG: ${{ github.sha }}

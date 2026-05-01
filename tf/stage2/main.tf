@@ -1,6 +1,7 @@
 variable ARM_CLIENT_ID {}
 variable ARM_CLIENT_SECRET {}
-variable DJANGO_SECRET_KEY_PROD {}  
+variable DJANGO_SECRET_KEY_PROD {}
+variable IMAGE_TAG {}
 
 terraform {
   required_providers {
@@ -39,7 +40,7 @@ resource "azurerm_container_group" "aci-jknapp-acmp" {
 
   container {
     name    = "final-app"
-    image   = "acrjknappacmp2400.azurecr.io/final:latest"
+    image   = "acrjknappacmp2400.azurecr.io/final:${var.IMAGE_TAG}"
     cpu     = "0.5"
     memory  = "1.5"
 
@@ -54,7 +55,7 @@ resource "azurerm_container_group" "aci-jknapp-acmp" {
   }
   image_registry_credential {
     server    = "acrjknappacmp2400.azurecr.io"
-    username  = "var.ARM_CLIENT_ID"
-    password  = "var.ARM_CLIENT_SECRET"
+    username  = var.ARM_CLIENT_ID
+    password  = var.ARM_CLIENT_SECRET
   }
 }
