@@ -11,16 +11,16 @@ export TF_STAGE=${INPUT_TF_STAGE}
 export DJANGO_SECRET_KEY=${INPUT_DJANGO_SECRET_KEY}
 
 if [[ "$TF_STAGE" == "stage1" ]]; then
-    terraform -chdir=${INPUT_TF_STAGE} init -backend-config="key=${INPUT_STATE_KEY}.tfstate"
-    terraform -chdir=${INPUT_TF_STAGE} plan -out=${INPUT_TF_STAGE}.tfplan
-    terraform -chdir=${INPUT_TF_STAGE} apply -auto-approve ${INPUT_TF_STAGE}.tfplan
+    terraform -chdir=tf/${INPUT_TF_STAGE} init -backend-config="key=${INPUT_STATE_KEY}.tfstate"
+    terraform -chdir=tf/${INPUT_TF_STAGE} plan -out=${INPUT_TF_STAGE}.tfplan
+    terraform -chdir=tf/${INPUT_TF_STAGE} apply -auto-approve ${INPUT_TF_STAGE}.tfplan
 elif [[ "$TF_STAGE" == "stage2" ]]; then
-    terraform -chdir=${INPUT_TF_STAGE} init -backend-config="key=${INPUT_STATE_KEY}.tfstate"
-    terraform -chdir=${INPUT_TF_STAGE} apply -auto-approve -var="ARM_CLIENT_ID=${INPUT_ARM_CLIENT_ID}" -var="DJANGO_SECRET_KEY_PROD=${INPUT_DJANGO_SECRET_KEY_PROD}"
+    terraform -chdir=tf/${INPUT_TF_STAGE} init -backend-config="key=${INPUT_STATE_KEY}.tfstate"
+    terraform -chdir=tf/${INPUT_TF_STAGE} apply -auto-approve -var="ARM_CLIENT_ID=${INPUT_ARM_CLIENT_ID}" -var="DJANGO_SECRET_KEY_PROD=${INPUT_DJANGO_SECRET_KEY_PROD}"
 elif [[ "$TF_STAGE" == "stage3" ]]; then
-    terraform -chdir=${INPUT_TF_STAGE} init -backend-config="key=${INPUT_STATE_KEY}.tfstate"
-    terraform -chdir=${INPUT_TF_STAGE} plan -out=${INPUT_TF_STAGE}.tfplan
-    terraform -chdir=${INPUT_TF_STAGE} apply -auto-approve ${INPUT_TF_STAGE}.tfplan
+    terraform -chdir=tf/${INPUT_TF_STAGE} init -backend-config="key=${INPUT_STATE_KEY}.tfstate"
+    terraform -chdir=tf/${INPUT_TF_STAGE} plan -out=${INPUT_TF_STAGE}.tfplan
+    terraform -chdir=tf/${INPUT_TF_STAGE} apply -auto-approve ${INPUT_TF_STAGE}.tfplan
 else
     echo "Invalid TF_STAGE value: $TF_STAGE"
     exit 1
