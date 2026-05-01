@@ -12,6 +12,6 @@ jobs:
         uses: ./.github/actions/sbom-scan 
         with:
           name: project-sbom
-          path: snom.json
+          path: sbom.json
           compression-level: 0
       
