@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Build, Scan, Deploy, Verify, Teardown
 on:
   workflow_dispatch
 permissions: {}
@@ -37,7 +37,7 @@ jobs:
           path: sbom.json
           compression-level: 0
            
-  terraform-stage-1:
+  tf-stage-1:
     runs-on: ubuntu-latest
     needs: [build-and-curl, sbom-scan-and-test]
     steps:
@@ -54,7 +54,7 @@ jobs:
           TF_STAGE: stage1
 
   build-tag-push:
-    needs: terraform-stage-1
+    needs: tf-stage-1
     runs-on: ubuntu-latest
     steps:
       - name: get_code
@@ -103,7 +103,7 @@ jobs:
           sleep 50
           curl --fail http://$prefix.centralus.azurecontainer.io:8000
            
-  stage-3-destroy:
+  tf-stage-3-destroy:
     runs-on: ubuntu-latest
     needs: pre-eval
     steps:
