@@ -2,26 +2,28 @@
 
 Containerized Django app with a full CI/CD pipeline that builds, scans, provisions infrastructure, deploys to Azure, and tears down on completion.
 
-## Stack
+### Stack
 
 Django · Docker · Terraform (azurerm) · Azure Container Registry · Azure Container Instances · GitHub Actions
 
-## Pipeline
+### Pipeline
 
 1. Build Docker image and smoke-test with `curl`
 2. Generate SBOM (Syft) and scan for critical CVEs (Grype)
 3. Provision Azure Container Registry — Terraform stage 1
 4. Build, tag with commit SHA, and push image to ACR
 5. Deploy to Azure Container Instances — Terraform stage 2
-6. Destroy all Azure resources — Terraform stage 3
+6. Verify the live deployment via its public DNS
+7. Destroy all Azure resources — Terraform stage 3
 
-## Infrastructure
+### Infrastructure
 
 - **ACR** — stores Docker images
 - **ACI** — hosts the running container
-- **Pre-provisioned** resource group and Terraform state backend (storage account + blob container)
+- **Pre-provisioned** resource group and Terraform state backend (storage account + blob container) 
+  
 
-## Required GitHub Secrets
+### GitHub Secrets needed
 
 | Secret | Description |
 |---|---|
@@ -29,9 +31,9 @@ Django · Docker · Terraform (azurerm) · Azure Container Registry · Azure Con
 | `ARM_CLIENT_SECRET` | Service principal secret |
 | `ARM_SUBSCRIPTION_ID` | Azure subscription ID |
 | `ARM_TENANT_ID` | Azure tenant ID |
-| `STATE_KEY` | Terraform state file key |
+| `STATE_KEY` | unique identifier used to provision each individual slice of backend state |
 | `DJANGO_SECRET_KEY_PROD` | Django production secret key |
 
-## Run
+### Run
 
-GitHub → Actions → **CI Pipeline** → **Run workflow**.
+GitHub → Actions → **Build, Scan, Deploy, Verify, Teardown** → **Run workflow**.
