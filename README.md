@@ -16,6 +16,13 @@ Django · Docker · Terraform (azurerm) · Azure Container Registry · Azure Con
 6. Verify the live deployment via its public DNS
 7. Destroy all Azure resources — Terraform stage 3
 
+### Project structure
+
+- `final_app/` — Django project
+- `hello_final/` — Django app
+- `tf/` — Terraform configs, one folder per stage (`stage1`, `stage2`, `stage3`)
+- `.github/` — GitHub Actions workflow (`workflows/main.yml`) and composite actions (`actions/terraform`, `actions/sbom-scan`)
+
 ### Infrastructure
 
 - **ACR** — stores Docker images
