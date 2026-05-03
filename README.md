@@ -1,4 +1,4 @@
-# ACMP2400 Final Project
+## ACMP2400 Final Project
 
 Containerized Django app with a full CI/CD pipeline that builds, scans, provisions infrastructure, deploys to Azure, and tears down on completion.
 
