@@ -30,7 +30,7 @@ Django · Docker · Terraform (azurerm) · Azure Container Registry · Azure Con
 - **Pre-provisioned** resource group and Terraform state backend (storage account + blob container) 
   
 
-### GitHub Secrets needed
+### Vault
 
 | Secret | Description |
 |---|---|
